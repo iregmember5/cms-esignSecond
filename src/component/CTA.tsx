@@ -58,7 +58,9 @@
 // export default CTA;
 
 // CTA Component with dynamic data
-const CTA = ({ data }) => {
+import React from "react";
+import type { SectionProps } from "@/component/types";
+const CTA: React.FC<SectionProps> = ({ data }) => {
   return (
     <section className="py-20 bg-gradient-to-r from-blue-600 to-purple-600 relative overflow-hidden">
       <div className="absolute inset-0 bg-black/10"></div>

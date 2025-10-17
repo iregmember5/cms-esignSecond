@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import signmaryLogo from "../assets/logo-light-full.svg";
+import signmaryLogo from "@/assets/logo-light-full.svg";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);

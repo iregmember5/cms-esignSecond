@@ -55,7 +55,9 @@
 // export default Features;
 
 // Features Component with dynamic data
-const Features = ({ data }) => {
+import React from "react";
+import { SectionProps, FeatureItem } from "@/component/types";
+const Features: React.FC<SectionProps> = ({ data }) => {
   const defaultFeatures = [
     {
       title: "E-Sign Request",
@@ -115,7 +117,7 @@ const Features = ({ data }) => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {features.map((feature, index) => (
+          {features.map((feature: FeatureItem, index: number) => (
             <div
               key={index}
               className="group p-6 bg-white rounded-xl border border-gray-200 hover:border-blue-300 hover:shadow-lg transition-all duration-300 hover:-translate-y-1"

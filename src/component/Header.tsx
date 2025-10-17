@@ -80,10 +80,11 @@
 // export default Header;
 
 // Header Component
-
+import React from "react";
+import { SectionProps } from "@/component/types";
 import { Zap } from "lucide-react";
 
-const Header = ({ data }) => {
+const Header: React.FC<SectionProps> = ({ data }) => {
   if (!data) return null;
 
   // Split subtitle into words safely

@@ -41,11 +41,12 @@ import Header from "./component/Header";
 import { fetchLandingPageData } from "./API/Service/LandingPage";
 import Navbar from "./component/Navbar";
 import Testimonials from "./component/Testimonials";
+import type { PageData } from "@/component/types";
 
 function App() {
-  const [pageData, setPageData] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [pageData, setPageData] = useState<PageData | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const loadData = async () => {
@@ -57,7 +58,7 @@ function App() {
         } else {
           setError("Failed to load page data");
         }
-      } catch (err) {
+      } catch (err: any) {
         setError(err.message);
       } finally {
         setLoading(false);
@@ -94,6 +95,14 @@ function App() {
             Retry
           </button>
         </div>
+      </div>
+    );
+  }
+
+  if (!pageData) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gray-50">
+        <p className="text-gray-600 text-lg">No page data found.</p>
       </div>
     );
   }

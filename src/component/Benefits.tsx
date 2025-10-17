@@ -66,8 +66,11 @@
 // export default Benefits;
 
 // Benefits Component with dynamic data
-const Benefits = ({ data }) => {
-  const defaultBenefits = [
+import React from "react";
+import type { SectionProps, BenefitItem } from "@/component/types";
+
+const Benefits: React.FC<SectionProps> = ({ data }) => {
+  const defaultBenefits: BenefitItem[] = [
     {
       title: "Secure & Legally Compliant eSignatures",
       description:
@@ -106,7 +109,7 @@ const Benefits = ({ data }) => {
         </div>
 
         <div className="space-y-20">
-          {benefits.map((benefit, index) => (
+          {benefits.map((benefit: BenefitItem, index: number) => (
             <div
               key={index}
               className={`flex flex-col lg:flex-row items-center gap-12 ${
