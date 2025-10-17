@@ -1,23 +1,23 @@
 import { useState, useEffect } from "react";
-import signmaryLogo from "../assets/logo-light-full.svg"
+import signmaryLogo from "../assets/logo-light-full.svg";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
 
   const navigatetoheader = () => {
-    const headersection = document.getElementById("navigatetofirstscreen") 
+    const headersection = document.getElementById("navigatetofirstscreen");
     if (headersection) {
       headersection.scrollIntoView({
         behavior: "smooth",
-        block: "start"
-      })
+        block: "start",
+      });
     }
-  }
+  };
 
   const handleblog = () => {
     console.log("Navigate to blog");
-  }
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -26,7 +26,6 @@ const Navbar = () => {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
-
 
   return (
     <nav
@@ -39,14 +38,17 @@ const Navbar = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16 lg:h-20">
           {/* Logo Section - Improved spacing and alignment */}
-          <div className="flex items-center group cursor-pointer" onClick={navigatetoheader}>
+          <div
+            className="flex items-center group cursor-pointer"
+            onClick={navigatetoheader}
+          >
             <div className="relative">
               <div className="flex items-center space-x-3 px-2 py-1 rounded-xl transition-all duration-300 group-hover:bg-gradient-to-r group-hover:from-blue-50 group-hover:to-purple-50 group-hover:shadow-md">
                 <div className="relative w-28 h-12 lg:w-32 lg:h-14 flex-shrink-0 bg-white rounded-lg shadow-md">
                   <div className="w-full h-full flex items-center justify-center p-1">
-                    <img 
-                      src={signmaryLogo} 
-                      alt="Logo" 
+                    <img
+                      src={signmaryLogo}
+                      alt="Logo"
                       className="w-full h-full object-contain"
                     />
                   </div>
@@ -62,7 +64,7 @@ const Navbar = () => {
               {[
                 "Features",
                 "Benefits",
-                "Methodology",
+                "Testimonials",
                 "Pricing",
                 "Contact",
               ].map((item, index) => (
@@ -116,20 +118,42 @@ const Navbar = () => {
               className="relative p-2 text-gray-700 hover:text-blue-600 transition-all duration-300 rounded-lg hover:bg-blue-50 group"
             >
               <div className="relative w-6 h-6">
-                <div className={`absolute inset-0 transition-all duration-300 ${
-                  isMenuOpen ? "opacity-0 rotate-90" : "opacity-100 rotate-0"
-                }`}>
-                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                <div
+                  className={`absolute inset-0 transition-all duration-300 ${
+                    isMenuOpen ? "opacity-0 rotate-90" : "opacity-100 rotate-0"
+                  }`}
+                >
+                  <svg
+                    className="w-6 h-6"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M4 6h16M4 12h16M4 18h16"
+                    />
                   </svg>
                 </div>
-                <div className={`absolute inset-0 transition-all duration-300 ${
-                  isMenuOpen
-                    ? "opacity-100 rotate-0"
-                    : "opacity-0 -rotate-90"
-                }`}>
-                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                <div
+                  className={`absolute inset-0 transition-all duration-300 ${
+                    isMenuOpen ? "opacity-100 rotate-0" : "opacity-0 -rotate-90"
+                  }`}
+                >
+                  <svg
+                    className="w-6 h-6"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M6 18L18 6M6 6l12 12"
+                    />
                   </svg>
                 </div>
               </div>
