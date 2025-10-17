@@ -81,7 +81,7 @@
 
 // Header Component
 import React from "react";
-import { SectionProps } from "@/component/types";
+import { SectionProps } from "../component/types";
 import { Zap } from "lucide-react";
 
 const Header: React.FC<SectionProps> = ({ data }) => {

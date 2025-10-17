@@ -59,7 +59,7 @@
 
 // CTA Component with dynamic data
 import React from "react";
-import type { SectionProps } from "@/component/types";
+import type { SectionProps } from "../component/types";
 const CTA: React.FC<SectionProps> = ({ data }) => {
   return (
     <section className="py-20 bg-gradient-to-r from-blue-600 to-purple-600 relative overflow-hidden">

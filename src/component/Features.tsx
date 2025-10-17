@@ -56,7 +56,7 @@
 
 // Features Component with dynamic data
 import React from "react";
-import { SectionProps, FeatureItem } from "@/component/types";
+import { SectionProps, FeatureItem } from "../component/types";
 const Features: React.FC<SectionProps> = ({ data }) => {
   const defaultFeatures = [
     {

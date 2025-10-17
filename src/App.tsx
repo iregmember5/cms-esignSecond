@@ -41,7 +41,7 @@ import Header from "./component/Header";
 import { fetchLandingPageData } from "./API/Service/LandingPage";
 import Navbar from "./component/Navbar";
 import Testimonials from "./component/Testimonials";
-import type { PageData } from "@/component/types";
+import type { PageData } from "./component/types";
 
 function App() {
   const [pageData, setPageData] = useState<PageData | null>(null);

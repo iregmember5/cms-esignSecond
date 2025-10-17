@@ -67,7 +67,7 @@
 
 // Benefits Component with dynamic data
 import React from "react";
-import type { SectionProps, BenefitItem } from "@/component/types";
+import type { SectionProps, BenefitItem } from "../component/types";
 
 const Benefits: React.FC<SectionProps> = ({ data }) => {
   const defaultBenefits: BenefitItem[] = [

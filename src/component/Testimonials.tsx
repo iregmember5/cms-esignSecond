@@ -68,7 +68,10 @@
 // export default Testimonials;
 
 // Testimonials Component with dynamic data
-const Testimonials = ({ data }) => {
+import React from "react";
+import type { SectionProps } from "../component/types";
+
+const Testimonials: React.FC<SectionProps> = ({ data }) => {
   const defaultTestimonials = [
     {
       quote:
@@ -93,9 +96,15 @@ const Testimonials = ({ data }) => {
       rating: 5,
     },
   ];
-
-  const testimonials =
-    data?.testimonials?.length > 0 ? data.testimonials : defaultTestimonials;
+  const testimonials = (
+    data?.testimonials?.length ? data.testimonials : defaultTestimonials
+  ) as {
+    quote: string;
+    name: string;
+    title: string;
+    company: string;
+    rating: number;
+  }[];
 
   return (
     <section className="py-20 bg-white">
