@@ -14,7 +14,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '20.x'
+          node-version: "20.x"
 
       - name: Install dependencies
         run: npm install
@@ -48,7 +48,7 @@ jobs:
 
       - name: Deploy to Apache Server
         run: |
-          scp -i ~/.ssh/id_rsa -r dist/ ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }}:/var/www/signmary/
+          scp -i ~/.ssh/id_rsa -r dist/ ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }}:/var/www/signmary
 
       - name: Restart Apache
         run: |
