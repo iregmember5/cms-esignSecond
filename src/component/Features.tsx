@@ -57,8 +57,9 @@
 // Features Component with dynamic data
 import React from "react";
 import { SectionProps, FeatureItem } from "../component/types";
+// Features Component
 const Features: React.FC<SectionProps> = ({ data }) => {
-  const defaultFeatures = [
+  const defaultFeatures: FeatureItem[] = [
     {
       title: "E-Sign Request",
       description: "Send, sign, and track documents effortlessly",
@@ -101,16 +102,16 @@ const Features: React.FC<SectionProps> = ({ data }) => {
     },
   ];
 
-  const features = data?.features?.length > 0 ? data.features : defaultFeatures;
+  const features = data?.features?.length ? data.features : defaultFeatures;
 
   return (
-    <section className="py-20 bg-white">
+    <section className="py-20 bg-white dark:bg-slate-900">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4">
+          <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 dark:text-slate-100 mb-4">
             {data?.features_head || "Powerful Features"}
           </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+          <p className="text-xl text-gray-600 dark:text-slate-300 max-w-3xl mx-auto">
             {data?.features_introduction ||
               "Everything you need to streamline your process"}
           </p>
@@ -120,14 +121,14 @@ const Features: React.FC<SectionProps> = ({ data }) => {
           {features.map((feature: FeatureItem, index: number) => (
             <div
               key={index}
-              className="group p-6 bg-white rounded-xl border border-gray-200 hover:border-blue-300 hover:shadow-lg transition-all duration-300 hover:-translate-y-1"
+              className="group p-6 bg-white dark:bg-slate-800 rounded-xl border border-gray-200 dark:border-slate-700 hover:border-blue-300 dark:hover:border-blue-500 hover:shadow-lg transition-all duration-300 hover:-translate-y-1"
             >
               <div className="flex justify-center flex-col items-center">
                 <div className="text-5xl mb-4">{feature.icon}</div>
-                <h3 className="text-xl font-semibold text-gray-900 mb-2 group-hover:text-blue-600 transition-colors text-center">
+                <h3 className="text-xl font-semibold text-gray-900 dark:text-slate-100 mb-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors text-center">
                   {feature.title}
                 </h3>
-                <p className="text-gray-600 text-center">
+                <p className="text-gray-600 dark:text-slate-400 text-center">
                   {feature.description}
                 </p>
               </div>

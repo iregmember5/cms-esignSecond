@@ -107,13 +107,13 @@ const Testimonials: React.FC<SectionProps> = ({ data }) => {
   }[];
 
   return (
-    <section className="py-20 bg-white">
+    <section className="py-20 bg-white dark:bg-slate-900">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4">
+          <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 dark:text-slate-100 mb-4">
             {data?.testimonials_head || "Trusted by Industry Leaders"}
           </h2>
-          <p className="text-xl text-gray-600">
+          <p className="text-xl text-gray-600 dark:text-slate-300">
             {data?.testimonials_introduction || "See what our clients say"}
           </p>
         </div>
@@ -122,33 +122,36 @@ const Testimonials: React.FC<SectionProps> = ({ data }) => {
           {testimonials.map((testimonial, index) => (
             <div
               key={index}
-              className="bg-white p-6 rounded-xl border border-gray-200 hover:shadow-lg transition-shadow duration-300"
+              className="bg-white dark:bg-slate-800 p-6 rounded-xl border border-gray-200 dark:border-slate-700 hover:shadow-lg transition-shadow duration-300"
             >
               <div className="flex mb-4">
                 {[...Array(testimonial.rating || 5)].map((_, i) => (
-                  <span key={i} className="text-yellow-400 text-lg">
+                  <span
+                    key={i}
+                    className="text-yellow-400 dark:text-yellow-300 text-lg"
+                  >
                     ★
                   </span>
                 ))}
               </div>
-              <blockquote className="text-gray-600 mb-6 italic">
+              <blockquote className="text-gray-600 dark:text-slate-400 mb-6 italic">
                 "{testimonial.quote}"
               </blockquote>
               <div className="flex items-center">
-                <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 font-semibold">
+                <div className="w-12 h-12 bg-blue-100 dark:bg-blue-900/50 rounded-full flex items-center justify-center text-blue-600 dark:text-blue-400 font-semibold">
                   {testimonial.name
                     .split(" ")
                     .map((n) => n[0])
                     .join("")}
                 </div>
                 <div className="ml-4">
-                  <div className="font-semibold text-gray-900">
+                  <div className="font-semibold text-gray-900 dark:text-slate-100">
                     {testimonial.name}
                   </div>
-                  <div className="text-gray-600 text-sm">
+                  <div className="text-gray-600 dark:text-slate-400 text-sm">
                     {testimonial.title}
                   </div>
-                  <div className="text-blue-600 text-sm font-medium">
+                  <div className="text-blue-600 dark:text-blue-400 text-sm font-medium">
                     {testimonial.company}
                   </div>
                 </div>
