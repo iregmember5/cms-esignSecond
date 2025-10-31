@@ -31,11 +31,11 @@ const Header: React.FC<SectionProps> = ({ data, className = "" }) => {
     <header
       className={`relative flex flex-col justify-between min-h-screen bg-cover bg-center overflow-hidden ${className}`}
       style={{
-        backgroundImage: data?.header_background_image?.url
-          ? `linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.5)), url('${data.header_background_image.url}')`
-          : `linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.5)), url('https://images.pexels.com/photos/6863183/pexels-photo-6863183.jpeg')`,
+        backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.5)), url(${data?.header_background_image?.url
+            ? `https://esign-admin.signmary.com${data.header_background_image.url}`
+            : "https://images.pexels.com/photos/6863183/pexels-photo-6863183.jpeg"
+          })`,
       }}
-
     >
       {/* Main content - centered */}
       <div className="flex-1 flex items-center justify-center px-4 sm:px-6 lg:px-8 text-center pt-20 pb-32">
