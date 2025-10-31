@@ -2,13 +2,16 @@
 
 // 🔹 Represents each feature item (e.g., icon, title, description)
 export interface FeatureItem {
-  icon: string; // Can be an emoji, image path, or icon name
+  backgroundImage?: string;
+  textColor: string;
+  icon?: string; // Can be an emoji, image path, or icon name
   title: string;
   description: string;
+  background?: string; // <-- Add this line
 }
-
 // 🔹 Represents each benefit item (e.g., icon, title, description)
 export interface BenefitItem {
+  image: any;
   icon: string;
   title: string;
   description: string;

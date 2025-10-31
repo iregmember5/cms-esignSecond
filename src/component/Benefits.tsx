@@ -1,143 +1,127 @@
-// Hardcoded Benefits Component
-
-// const Benefits = () => {
-//   const benefits = [
-//     {
-//       title: "Secure & Legally Compliant eSignatures",
-//       description: "Send and collect legally binding signatures in seconds. My Powerly ensures every document meets international security standards for eSignatures with full audit trails and user authentication.",
-//       icon: <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 text-2xl">🔒</div>,
-//       stats: "99.9% Uptime"
-//     },
-//     {
-//       title: "Seamless Team Collaboration",
-//       description: "Manage roles, permissions, and workflows across your entire team. From internal routing to multi-party signing, every process is streamlined to eliminate manual follow-ups.",
-//       icon: <div className="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center text-purple-600 text-2xl">👥</div>,
-//       stats: "50% Faster Processing"
-//     },
-//     {
-//       title: "Global Integration Network",
-//       description: "Connect My Powerly with 5,000+ tools using Zapier. Whether it's Google Drive, Mailchimp, or CRMs, we fit right into your existing tech stack with no hassle.",
-//       icon: <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center text-green-600 text-2xl">🌍</div>,
-//       stats: "5,000+ Integrations"
-//     },
-//   ];
-
-//     return (
-//     <section id="benefits" className="py-20 bg-gradient-to-br from-blue-50 to-white">
-//       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-//         <div className="text-center mb-16">
-//           <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4">
-//             Why Choose My Powerly?
-//           </h2>
-//           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-//             Built specifically for tax and legal professionals who demand security, efficiency, and reliability
-//           </p>
-//         </div>
-
-//         <div className="space-y-20">
-//           {benefits.map((benefit, index) => (
-//             <div
-//               key={index}
-//               className={`flex flex-col lg:flex-row items-center gap-12 ${
-//                 index % 2 === 1 ? 'lg:flex-row-reverse' : ''
-//               }`}
-//             >
-//               <div className="flex-1 lg:max-w-md">
-//                 <div className="bg-white p-8 rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300">
-//                   {benefit.icon}
-//                   <div className="text-sm font-semibold text-blue-600 mt-4 mb-2">{benefit.stats}</div>
-//                   <h3 className="text-2xl font-bold text-gray-900 mb-4">{benefit.title}</h3>
-//                   <p className="text-gray-600 leading-relaxed">{benefit.description}</p>
-//                 </div>
-//               </div>
-//               <div className="flex-1">
-//                 <div className="bg-gradient-to-br from-blue-100 to-purple-100 rounded-2xl p-8 h-80 flex items-center justify-center">
-//                   <div className="text-6xl text-blue-600/20">📊</div>
-//                 </div>
-//               </div>
-//             </div>
-//           ))}
-//         </div>
-//       </div>
-//     </section>
-//   );
-// };
-
-// export default Benefits;
-
-// Benefits Component with dynamic data
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import type { SectionProps, BenefitItem } from "../component/types";
 
 // Benefits Component
 const Benefits: React.FC<SectionProps> = ({ data }) => {
+  const [visibleCards, setVisibleCards] = useState<Set<number>>(new Set());
+  const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
+
   const defaultBenefits: BenefitItem[] = [
     {
-      title: "Secure & Legally Compliant eSignatures",
-      description:
-        "Send and collect legally binding signatures in seconds. My Powerly ensures every document meets international security standards.",
-      icon: "🔒",
-      stats: "99.9% Uptime",
+      title: "Cost Savings",
+      description: "Ut enim ad minim veniam",
+      image: "https://images.unsplash.com/photo-1509391366360-2e959784a276?w=600&q=80",
+      icon: ""
     },
     {
-      title: "Seamless Team Collaboration",
-      description:
-        "Manage roles, permissions, and workflows across your entire team.",
-      icon: "👥",
-      stats: "50% Faster Processing",
+      title: "Increase Home Value",
+      description: "Ut enim ad minim veniam",
+      image: "https://images.unsplash.com/photo-1497440001374-f26997328c1b?w=600&q=80",
+      icon: ""
     },
     {
-      title: "Global Integration Network",
-      description: "Connect My Powerly with 5,000+ tools using Zapier.",
-      icon: "🌐",
-      stats: "5,000+ Integrations",
+      title: "Solar Works Everywhere",
+      description: "Ut enim ad minim veniam",
+      image: "https://images.unsplash.com/photo-1508514177221-188b1cf16e9d?w=600&q=80",
+      icon: ""
     },
   ];
 
   const benefits = data?.benefits?.length ? data.benefits : defaultBenefits;
 
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const index = cardRefs.current.indexOf(entry.target as HTMLDivElement);
+            if (index !== -1) {
+              setVisibleCards((prev) => new Set(prev).add(index));
+            }
+          }
+        });
+      },
+      {
+        threshold: 0.2,
+        rootMargin: "0px 0px -100px 0px",
+      }
+    );
+
+    cardRefs.current.forEach((ref) => {
+      if (ref) observer.observe(ref);
+    });
+
+    return () => observer.disconnect();
+  }, [benefits.length]);
+
   return (
-    <section className="py-20 bg-gradient-to-br from-blue-50 to-white dark:from-slate-900 dark:to-slate-800">
+    <section className="py-20 bg-gray-900">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Section Header */}
         <div className="text-center mb-16">
-          <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 dark:text-slate-100 mb-4">
-            {data?.benefits_head || "Why Choose Us?"}
+          <h2 className="text-4xl sm:text-5xl font-bold text-white mb-6">
+            {data?.benefits_head || "Installing Benefits"}
           </h2>
-          <p className="text-xl text-gray-600 dark:text-slate-300 max-w-3xl mx-auto">
+          <p className="text-lg sm:text-xl text-gray-300 max-w-4xl mx-auto leading-relaxed">
             {data?.benefits_introduction ||
-              "Built for professionals who demand excellence"}
+              "Harnessing energy from the sun and converting it to clean energy to power your home — or even a car — reduces your carbon footprint and saves on energy costs for years to come."}
           </p>
         </div>
 
-        <div className="space-y-20">
+        {/* Benefits Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {benefits.map((benefit: BenefitItem, index: number) => (
             <div
               key={index}
-              className={`flex flex-col lg:flex-row items-center gap-12 ${
-                index % 2 === 1 ? "lg:flex-row-reverse" : ""
-              }`}
+              ref={(el) => { cardRefs.current[index] = el; }}
+              className="relative overflow-hidden group cursor-pointer h-[400px] sm:h-[500px]"
+              style={{
+                opacity: visibleCards.has(index) ? 1 : 0,
+                transform: visibleCards.has(index)
+                  ? "translateY(0)"
+                  : "translateY(50px)",
+                transition: `all 0.8s cubic-bezier(0.4, 0, 0.2, 1) ${index * 0.2}s`,
+              }}
             >
-              <div className="flex-1 lg:max-w-md">
-                <div className="bg-white dark:bg-slate-800 p-8 rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300 border border-transparent dark:border-slate-700">
-                  <div className="text-5xl mb-4">{benefit.icon}</div>
-                  <div className="text-sm font-semibold text-blue-600 dark:text-blue-400 mb-2">
-                    {benefit.stats}
-                  </div>
-                  <h3 className="text-2xl font-bold text-gray-900 dark:text-slate-100 mb-4">
+              {/* Background Image */}
+              <div
+                className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110"
+                style={{
+                  backgroundImage: `url('${benefit.image}')`,
+                }}
+              />
+
+              {/* Overlay Gradient */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent transition-opacity duration-500 group-hover:from-black/95" />
+
+              {/* Content */}
+              <div className="absolute inset-0 flex flex-col justify-end p-8">
+                <div
+                  style={{
+                    opacity: visibleCards.has(index) ? 1 : 0,
+                    transform: visibleCards.has(index)
+                      ? "translateY(0)"
+                      : "translateY(30px)",
+                    transition: `all 0.8s cubic-bezier(0.4, 0, 0.2, 1) ${index * 0.2 + 0.3
+                      }s`,
+                  }}
+                >
+                  <h3 className="text-2xl sm:text-3xl font-bold text-white mb-3 transform transition-transform duration-300 group-hover:translate-x-2">
                     {benefit.title}
                   </h3>
-                  <p className="text-gray-600 dark:text-slate-400 leading-relaxed">
+                  <p className="text-gray-200 text-base sm:text-lg transform transition-all duration-300 group-hover:translate-x-2">
                     {benefit.description}
                   </p>
                 </div>
-              </div>
-              <div className="flex-1">
-                <div className="bg-gradient-to-br from-blue-100 to-purple-100 dark:from-blue-900/30 dark:to-purple-900/30 rounded-2xl p-8 h-80 flex items-center justify-center border border-transparent dark:border-slate-700">
-                  <div className="text-6xl text-blue-600/20 dark:text-blue-400/30">
-                    📊
-                  </div>
+
+                {/* Hover Indicator */}
+                <div className="mt-6 opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-300">
+                  <div className="w-12 h-0.5 bg-white transform origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-500" />
                 </div>
               </div>
+
+              {/* Animated Border */}
+              <div className="absolute inset-0 border-2 border-transparent group-hover:border-white/20 transition-all duration-500" />
             </div>
           ))}
         </div>

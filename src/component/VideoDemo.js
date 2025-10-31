@@ -1,0 +1,5 @@
+import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
+const VideoDemo = () => {
+    return (_jsx("section", { className: "bg-gradient-to-br from-blue-100 to-white py-16 px-4 text-center", children: _jsxs("div", { className: "max-w-4xl mx-auto", children: [_jsx("h2", { className: "text-4xl font-bold text-blue-800 mb-4", children: "How SignMarrys Works" }), _jsx("p", { className: "text-xl text-gray-600 mb-8", children: "Experience the fast, simple, and secure way to request and manage signatures online. From document upload to signature delivery \u2014 all in one smooth workflow." }), _jsx("div", { className: "relative pb-56.25% h-0 overflow-hidden rounded-lg shadow-lg animate-fadeIn", children: _jsx("iframe", { className: "absolute top-0 left-0 w-full h-full", src: "https://www.youtube.com/embed/AoGo0Go2otg", title: "How SignMarrys Works", allow: "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture", allowFullScreen: true }) })] }) }));
+};
+export default VideoDemo;

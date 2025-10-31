@@ -1,5 +1,3 @@
-// import HomePage from "../../HomePage/HomePage";
-
 const Hero = () => {
   return (
     <section

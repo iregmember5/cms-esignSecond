@@ -1,101 +1,36 @@
-// Testimonials Component with hardcoded data
-
-// const Testimonials = () => {
-//   const testimonials = [
-//     {
-//       quote: "I could not imagine staff picking up these manual tasks and having to click through these screens ever again. We're not going back.",
-//       name: "Bob Fink",
-//       title: "Chief Information Officer",
-//       company: "Honkamp, P.C.",
-//       rating: 5,
-//     },
-//     {
-//       quote: "The process is so much easier. For our team to be able to see what we asked for and what clients submitted, it's going to increase our efficiency by quite a bit. It's a gamechanger.",
-//       name: "Cindy Owens",
-//       title: "Software Analyst",
-//       company: "Rehmann",
-//       rating: 5,
-//     },
-//     {
-//       quote: "If you're even slightly thinking about SignMary, I would jump in the deep end of the pool with no life vest. It's super easy to learn, the team walks you through everything, and customer service is amazing.",
-//       name: "Melody Young",
-//       title: "Admin Operations Manager",
-//       company: "BMS LLC Advisors & CPAs",
-//       rating: 5,
-//     },
-//   ];
-
-//   return (
-//     <section id="testimonials" className="py-20 bg-white">
-//       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-//         <div className="text-center mb-16">
-//           <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4">
-//             Trusted by Industry Leaders
-//           </h2>
-//           <p className="text-xl text-gray-600">
-//             SignMary saves firms thousands of hours every year
-//           </p>
-//         </div>
-
-//         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-//           {testimonials.map((testimonial, index) => (
-//             <div key={index} className="bg-white p-6 rounded-xl border border-gray-200 hover:shadow-lg transition-shadow duration-300">
-//               <div className="flex mb-4">
-//                 {[...Array(5)].map((_, i) => (
-//                   <span key={i} className="text-yellow-400 text-lg">★</span>
-//                 ))}
-//               </div>
-//               <blockquote className="text-gray-600 mb-6 italic">
-//                 "{testimonial.quote}"
-//               </blockquote>
-//               <div className="flex items-center">
-//                 <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 font-semibold">
-//                   {testimonial.name.split(' ').map(n => n[0]).join('')}
-//                 </div>
-//                 <div className="ml-4">
-//                   <div className="font-semibold text-gray-900">{testimonial.name}</div>
-//                   <div className="text-gray-600 text-sm">{testimonial.title}</div>
-//                   <div className="text-blue-600 text-sm font-medium">{testimonial.company}</div>
-//                 </div>
-//               </div>
-//             </div>
-//           ))}
-//         </div>
-//       </div>
-//     </section>
-//   );
-// };
-// export default Testimonials;
-
-// Testimonials Component with dynamic data
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import type { SectionProps } from "../component/types";
+import { Star, Quote } from "lucide-react";
 
 const Testimonials: React.FC<SectionProps> = ({ data }) => {
+  const [visibleCards, setVisibleCards] = useState<Set<number>>(new Set());
+  const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
+
   const defaultTestimonials = [
     {
       quote:
-        "I could not imagine staff picking up these manual tasks ever again.",
-      name: "Bob Fink",
-      title: "Chief Information Officer",
-      company: "Honkamp, P.C.",
+        "Switching to solar was the best decision for our home. The installation was seamless and our energy bills have dropped significantly.",
+      name: "Sarah Johnson",
+      title: "Homeowner",
+      company: "San Diego, CA",
       rating: 5,
     },
     {
-      quote: "The process is so much easier. It's a gamechanger.",
-      name: "Cindy Owens",
-      title: "Software Analyst",
-      company: "Rehmann",
+      quote: "Professional service from start to finish. The team was knowledgeable and the solar system works perfectly.",
+      name: "Michael Chen",
+      title: "Business Owner",
+      company: "Los Angeles, CA",
       rating: 5,
     },
     {
-      quote: "It's super easy to learn and customer service is amazing.",
-      name: "Melody Young",
-      title: "Admin Operations Manager",
-      company: "BMS LLC",
+      quote: "Amazing experience! Our solar panels are producing more energy than expected. Highly recommend their services.",
+      name: "Emily Rodriguez",
+      title: "Homeowner",
+      company: "Phoenix, AZ",
       rating: 5,
     },
   ];
+
   const testimonials = (
     data?.testimonials?.length ? data.testimonials : defaultTestimonials
   ) as {
@@ -106,61 +41,159 @@ const Testimonials: React.FC<SectionProps> = ({ data }) => {
     rating: number;
   }[];
 
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const index = cardRefs.current.indexOf(entry.target as HTMLDivElement);
+            if (index !== -1) {
+              setVisibleCards((prev) => new Set(prev).add(index));
+            }
+          }
+        });
+      },
+      {
+        threshold: 0.15,
+        rootMargin: "0px 0px -80px 0px",
+      }
+    );
+
+    cardRefs.current.forEach((ref) => {
+      if (ref) observer.observe(ref);
+    });
+
+    return () => observer.disconnect();
+  }, [testimonials.length]);
+
   return (
-    <section className="py-20 bg-white dark:bg-slate-900">
+    <section className="py-20 bg-gradient-to-b from-gray-50 to-white dark:from-slate-900 dark:to-slate-800">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Section Header */}
         <div className="text-center mb-16">
           <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 dark:text-slate-100 mb-4">
-            {data?.testimonials_head || "Trusted by Industry Leaders"}
+            {data?.testimonials_head || "What Our Clients Say"}
           </h2>
-          <p className="text-xl text-gray-600 dark:text-slate-300">
-            {data?.testimonials_introduction || "See what our clients say"}
+          <p className="text-lg sm:text-xl text-gray-600 dark:text-slate-300 max-w-3xl mx-auto">
+            {data?.testimonials_introduction || "Trusted by homeowners and businesses across the country"}
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {/* Testimonials Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
           {testimonials.map((testimonial, index) => (
             <div
               key={index}
-              className="bg-white dark:bg-slate-800 p-6 rounded-xl border border-gray-200 dark:border-slate-700 hover:shadow-lg transition-shadow duration-300"
+              ref={(el) => { cardRefs.current[index] = el; }}
+              className="group relative"
+              style={{
+                opacity: visibleCards.has(index) ? 1 : 0,
+                transform: visibleCards.has(index)
+                  ? "translateY(0) scale(1)"
+                  : "translateY(40px) scale(0.95)",
+                transition: `all 0.7s cubic-bezier(0.4, 0, 0.2, 1) ${index * 0.15}s`,
+              }}
             >
-              <div className="flex mb-4">
-                {[...Array(testimonial.rating || 5)].map((_, i) => (
-                  <span
-                    key={i}
-                    className="text-yellow-400 dark:text-yellow-300 text-lg"
-                  >
-                    ★
-                  </span>
-                ))}
-              </div>
-              <blockquote className="text-gray-600 dark:text-slate-400 mb-6 italic">
-                "{testimonial.quote}"
-              </blockquote>
-              <div className="flex items-center">
-                <div className="w-12 h-12 bg-blue-100 dark:bg-blue-900/50 rounded-full flex items-center justify-center text-blue-600 dark:text-blue-400 font-semibold">
-                  {testimonial.name
-                    .split(" ")
-                    .map((n) => n[0])
-                    .join("")}
-                </div>
-                <div className="ml-4">
-                  <div className="font-semibold text-gray-900 dark:text-slate-100">
-                    {testimonial.name}
-                  </div>
-                  <div className="text-gray-600 dark:text-slate-400 text-sm">
-                    {testimonial.title}
-                  </div>
-                  <div className="text-blue-600 dark:text-blue-400 text-sm font-medium">
-                    {testimonial.company}
+              {/* Card */}
+              <div className="relative h-full bg-white dark:bg-slate-800 p-8 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 border-2 border-transparent hover:border-yellow-400/30 dark:hover:border-yellow-500/30 overflow-hidden">
+                {/* Decorative gradient background */}
+                <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-yellow-400/10 to-transparent rounded-bl-full transform translate-x-8 -translate-y-8 group-hover:scale-150 transition-transform duration-700" />
+
+                {/* Quote Icon */}
+                <div className="relative mb-6">
+                  <div className="w-12 h-12 bg-gradient-to-br from-yellow-400 to-yellow-500 rounded-lg flex items-center justify-center transform group-hover:rotate-6 transition-transform duration-500">
+                    <Quote className="w-6 h-6 text-white" />
                   </div>
                 </div>
+
+                {/* Rating Stars */}
+                <div
+                  className="flex mb-4"
+                  style={{
+                    opacity: visibleCards.has(index) ? 1 : 0,
+                    transform: visibleCards.has(index)
+                      ? "translateX(0)"
+                      : "translateX(-20px)",
+                    transition: `all 0.6s cubic-bezier(0.4, 0, 0.2, 1) ${index * 0.15 + 0.2
+                      }s`,
+                  }}
+                >
+                  {[...Array(testimonial.rating || 5)].map((_, i) => (
+                    <Star
+                      key={i}
+                      className="w-5 h-5 text-yellow-400 fill-yellow-400 transform group-hover:scale-110 transition-transform duration-300"
+                      style={{
+                        transitionDelay: `${i * 50}ms`,
+                      }}
+                    />
+                  ))}
+                </div>
+
+                {/* Quote */}
+                <blockquote
+                  className="relative text-gray-700 dark:text-slate-300 mb-8 text-base leading-relaxed"
+                  style={{
+                    opacity: visibleCards.has(index) ? 1 : 0,
+                    transform: visibleCards.has(index)
+                      ? "translateY(0)"
+                      : "translateY(20px)",
+                    transition: `all 0.7s cubic-bezier(0.4, 0, 0.2, 1) ${index * 0.15 + 0.3
+                      }s`,
+                  }}
+                >
+                  "{testimonial.quote}"
+                </blockquote>
+
+                {/* Author Info */}
+                <div
+                  className="relative flex items-center"
+                  style={{
+                    opacity: visibleCards.has(index) ? 1 : 0,
+                    transform: visibleCards.has(index)
+                      ? "translateY(0)"
+                      : "translateY(20px)",
+                    transition: `all 0.7s cubic-bezier(0.4, 0, 0.2, 1) ${index * 0.15 + 0.4
+                      }s`,
+                  }}
+                >
+                  {/* Avatar */}
+                  <div className="w-14 h-14 bg-gradient-to-br from-yellow-400 to-yellow-500 rounded-full flex items-center justify-center text-white font-bold text-lg shadow-lg group-hover:scale-110 transition-transform duration-500">
+                    {testimonial.name
+                      .split(" ")
+                      .map((n) => n[0])
+                      .join("")}
+                  </div>
+
+                  {/* Details */}
+                  <div className="ml-4">
+                    <div className="font-bold text-gray-900 dark:text-slate-100 text-lg">
+                      {testimonial.name}
+                    </div>
+                    <div className="text-gray-600 dark:text-slate-400 text-sm">
+                      {testimonial.title}
+                    </div>
+                    <div className="text-yellow-600 dark:text-yellow-400 text-sm font-medium">
+                      {testimonial.company}
+                    </div>
+                  </div>
+                </div>
+
+                {/* Hover accent line */}
+                <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-yellow-400 to-yellow-500 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
               </div>
             </div>
           ))}
+        </div>
+
+        {/* Optional: Add a CTA at the bottom */}
+        <div className="text-center mt-16">
+          <button className="px-8 py-4 bg-gradient-to-r from-yellow-400 to-yellow-500 text-gray-900 font-bold text-lg rounded-full hover:shadow-xl hover:scale-105 transition-all duration-300">
+            Read More Reviews
+          </button>
         </div>
       </div>
     </section>
   );
 };
+
 export default Testimonials;
