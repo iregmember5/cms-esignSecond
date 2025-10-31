@@ -12,7 +12,7 @@ const fetchLandingPageData = async () => {
             headers: {
                 "Content-Type": "application/json",
                 // In production, add the X-Frontend-Url header
-                ...(isDevelopment ? {} : { "X-Frontend-Url": "https://signmary.com" }),
+                ...(isDevelopment ? {} : { "X-Frontend-Url": "https://cms-esign-second.vercel.app/" }),
             },
         });
         if (!response.ok) {
