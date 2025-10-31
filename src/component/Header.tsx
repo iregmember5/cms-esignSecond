@@ -31,7 +31,7 @@ const Header: React.FC<SectionProps> = ({ data, className = "" }) => {
     <header
       className={`relative flex flex-col justify-between min-h-screen bg-cover bg-center overflow-hidden ${className}`}
       style={{
-        backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1509391366360-2e959784a276?w=1920&q=80')`,
+        backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.5)), url('https://images.pexels.com/photos/6863183/pexels-photo-6863183.jpeg')`,
       }}
     >
       {/* Main content - centered */}
